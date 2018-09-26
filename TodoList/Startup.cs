@@ -20,6 +20,7 @@ namespace TodoList.Web
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddCors();
             services.AddSwaggerGen(x => x.SwaggerDoc("v1",
                 new Swashbuckle.AspNetCore.Swagger.Info
                 {
@@ -37,6 +38,11 @@ namespace TodoList.Web
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
+                app.UseCors(builder => builder
+                    .AllowAnyMethod()
+                    .AllowAnyHeader()
+                    .AllowAnyOrigin()
+                    .AllowCredentials());
             }
             else
             {
